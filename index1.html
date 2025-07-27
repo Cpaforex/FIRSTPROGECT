@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>ثبت نام - CONTINUOUS PROFIT ACADEMY</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/index-custom.css">
+    <link rel="stylesheet" href="css/floating-ai-assistant.css">
+
+    <!-- بارگذاری ethers.js نسخه 6 از CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.10.0/dist/ethers.umd.min.js"></script>
+    <!-- بارگذاری WalletConnect Provider از CDN رسمی -->
+    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+    <!-- بارگذاری WalletConnect Handler -->
+    <script src="js/walletconnect-handler.js?v=5.7"></script>
+
+    <!-- بارگذاری WalletConnect UMD به صورت لوکال -->
+    <script src="js/walletconnect-v1.8.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+</head>
+<body>
+    <!-- Registration Form Section -->
+    <div id="main-register" class="page-section expandable-container" style="width:100vw;max-width:none;margin:0;left:0;right:0;padding:0.5rem 0;display:block;">
+        <div class="expand-header" style="padding:0 1.5rem;">
+            <h2 style="margin:0 0 0.5rem 0;color:#00ff88;">📝 ثبت‌نام در آکادمی سود مستمر</h2>
+            <p style="margin:0 0 0.5rem 0;color:#b8c1ec;">ثبت‌نام سریع و آسان - فقط چند کلیک</p>
+        </div>
+        <div class="expand-content" style="padding:0;">
+            <div class="register-container" style="max-width:600px;margin:0 auto;padding:1.5rem;">
+                
+                <!-- Registration Status Display -->
+                <div id="registration-status-display" style="background:linear-gradient(135deg,#232946,#181c2a);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;border:2px solid #a786ff;text-align:center;">
+                    <div style="font-size:3rem;margin-bottom:1rem;">🚀</div>
+                    <h3 style="color:#00ff88;margin-bottom:1rem;font-size:1.3rem;">خوش آمدید به آکادمی سود مستمر</h3>
+                    <p style="color:#b8c1ec;margin-bottom:1.5rem;line-height:1.6;">
+                        برای دسترسی به تمام امکانات، لطفاً ثبت‌نام کنید.<br>
+                        هزینه ثبت‌نام: <strong style="color:#00ff88;" id="permanent-registration-cost">100 CPA</strong>
+                    </p>
+                    <div style="background:rgba(167,134,255,0.1);border-radius:8px;padding:1rem;margin:1rem 0;">
+                        <h4 style="color:#a786ff;margin-bottom:0.5rem;">✨ مزایای ثبت‌نام:</h4>
+                        <ul style="color:#b8c1ec;text-align:right;margin:0;padding-right:1rem;">
+                            <li>دسترسی به تمام بخش‌های سایت</li>
+                            <li>امکان خرید و فروش توکن CPA</li>
+                            <li>دسترسی به شبکه باینری و پاداش‌ها</li>
+                            <li>امکان دریافت رفرال و درآمد</li>
+                            <li>دسترسی به آموزش‌ها و اخبار</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Registration Form -->
+                <form id="registration-form" class="registration-form" style="background:linear-gradient(135deg,#232946,#181c2a);border-radius:12px;padding:1.5rem;border:2px solid #a786ff;">
+                    <div style="margin-bottom:1.2rem;">
+                        <label for="referrer-address" style="color:#a786ff;font-weight:bold;margin-bottom:0.5rem;display:block;">👥 آدرس معرف:</label>
+                        <input type="text" id="referrer-address" placeholder="0x..." required style="width:100%;padding:0.8rem 1.2rem;border-radius:8px;border:2px solid #a786ff;background:rgba(0,0,0,0.2);color:#fff;font-family:monospace;direction:ltr;text-align:left;box-sizing:border-box;font-size:1.05rem;">
+                        <small style="color:#b8c1ec;font-size:0.85rem;margin-top:0.3rem;display:block;">آدرس معرف (اگر ندارید، آدرس deployer استفاده می‌شود)</small>
+                    </div>
+                    <div style="margin-bottom:1.5rem;">
+                        <label for="register-ref-index" style="color:#a786ff;font-weight:bold;margin-bottom:0.5rem;display:block;">🔢 ایندکس معرف:</label>
+                        <div style="display:flex;gap:0.3rem;align-items:center;max-width:350px;">
+                            <input type="number" id="register-ref-index" placeholder="ایندکس" min="0" style="flex:1;padding:0.8rem 0.5rem;border-radius:8px;border:2px solid #a786ff;background:rgba(0,0,0,0.2);color:#fff;font-family:monospace;direction:ltr;text-align:left;box-sizing:border-box;font-size:0.98rem;">
+                            <button type="button" id="register-index-search-btn" style="background:linear-gradient(90deg,#00ff88,#a786ff);color:#181c2a;font-weight:bold;border:none;border-radius:8px;padding:0.8rem 1rem;font-size:0.9rem;cursor:pointer;transition:all 0.3s;white-space:nowrap;">🔍 پیدا کن</button>
+                        </div>
+                        <div id="register-index-search-status" style="color:#ff4444;font-size:0.9rem;margin-top:0.3rem;"></div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:1.5rem;">
+                        <label for="register-user-address" style="color:#a786ff;font-weight:bold;margin-bottom:0.5rem;display:block;">👤 آدرس کیف پول کاربر:</label>
+                        <input type="text" id="register-user-address" placeholder="0x..." required style="width:100%;padding:0.8rem;border-radius:8px;border:2px solid #a786ff;background:rgba(0,0,0,0.2);color:#fff;font-family:monospace;direction:ltr;text-align:left;box-sizing:border-box;">
+                        <small style="color:#b8c1ec;font-size:0.85rem;margin-top:0.3rem;display:block;">آدرس کیف پولی که می‌خواهید ثبت‌نام کنید</small>
+                    </div>
+                    <div id="register-ref-summary" style="display:none;margin-bottom:1.5rem;background:rgba(167,134,255,0.08);border-radius:8px;padding:0.8rem;">
+                        <div>آدرس کیف پول شما: <span id="register-wallet-address" style="color:#00ff88;font-family:monospace;">-</span></div>
+                        <div>آدرس معرف: <span id="register-referrer-address" style="color:#a786ff;font-family:monospace;">-</span></div>
+                    </div>
+                    <div id="register-cpa-balance" style="color:#00ff88;font-weight:bold;margin-bottom:0.5rem;">CPA: -</div>
+                    <div id="register-usdc-balance" style="color:#00ccff;font-weight:bold;margin-bottom:0.5rem;">USDC: -</div>
+                    <div id="register-matic-balance" style="color:#a786ff;font-weight:bold;margin-bottom:1.5rem;">MATIC: -</div>
+                    <div style="margin-bottom:1.5rem;">
+                        <span>مقدار مورد نیاز برای ثبت‌نام: <span id="register-cpa-required" style="color:#00ff88;font-weight:bold;">100 CPA</span></span>
+                        <span style="margin-right:1.5rem;">حداقل متیک مورد نیاز: <span id="register-matic-required" style="color:#a786ff;font-weight:bold;">0.05 MATIC</span></span>
+                    </div>
+                    <div class="form-group" id="register-index-search-group" style="margin-bottom:1.5rem;">
+                        <small style="color:#b8c1ec;font-size:0.85rem;margin-top:0.3rem;display:block;">ایندکس معرف را وارد کنید تا آدرس ولت به طور خودکار در فیلد معرف قرار گیرد</small>
+                        <div id="register-index-search-status" style="color:#ff4444;font-size:0.9rem;margin-top:0.3rem;"></div>
+                    </div>
+                    <button type="button" id="register-btn" style="width:100%;background:linear-gradient(90deg,#00ff88,#a786ff);color:#181c2a;font-weight:bold;border:none;border-radius:8px;padding:1rem;font-size:1.1rem;cursor:pointer;transition:all 0.3s;margin-bottom:1rem;">ثبت‌ نام</button>
+                    <div id="register-status" style="text-align:center;margin-top:1rem;"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- نمایش وضعیت اتصال -->
+    <div id="connection-status" style="
+        display: none;
+        margin: 0 1rem 1rem 1rem;
+        padding: 1rem;
+        border-radius: 12px;
+        font-family: 'Nazanin', 'B Nazanin', 'BNazanin', Tahoma, Arial, sans-serif;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-align: center;
+    "></div>
+
+    <!-- سایر اسکریپت‌ها -->
+    <script src="js/config.js"></script>
+    <script src="js/web3-interactions.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/network.js?v=5.7"></script>
+    <script src="js/register.js?v=5.7"></script>
+
+    <script>
+        // اتصال خودکار به ولت و به‌روزرسانی فرم ثبت‌نام هنگام نمایش دایو ثبت‌نام
+        function autoConnectWalletOnRegisterDiv() {
+            const regDiv = document.getElementById('main-register');
+            if (!regDiv) return;
+            const observer = new MutationObserver(async () => {
+                if (regDiv.style.display !== 'none') {
+                    if (window.connectWallet) {
+                        await window.connectWallet();
+                    }
+                    if (window.showRegistrationForm) {
+                        await window.showRegistrationForm();
+                    }
+                }
+            });
+            observer.observe(regDiv, { attributes: true, attributeFilter: ['style'] });
+        }
+        document.addEventListener('DOMContentLoaded', autoConnectWalletOnRegisterDiv);
+
+        // جستجو معرف با ایندکس و قرار دادن در فیلد معرف (با استفاده از indexToAddress)
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchBtn = document.getElementById('register-index-search-btn');
+            const indexInput = document.getElementById('register-ref-index');
+            const statusDiv = document.getElementById('register-index-search-status');
+            const refInput = document.getElementById('referrer-address');
+            searchBtn && searchBtn.addEventListener('click', async function() {
+                statusDiv.textContent = '';
+                const idx = indexInput.value.trim();
+                if (!idx || isNaN(idx) || parseInt(idx) < 0) {
+                    statusDiv.textContent = 'ایندکس معتبر وارد کنید';
+                    return;
+                }
+                try {
+                    if (!window.contractConfig || !window.contractConfig.contract) {
+                        statusDiv.textContent = 'اتصال کیف پول برقرار نیست';
+                        return;
+                    }
+                    const contract = window.contractConfig.contract;
+                    let address = await contract.indexToAddress(parseInt(idx));
+                    if (!address || address === '0x0000000000000000000000000000000000000000') {
+                        statusDiv.textContent = 'آدرس معتبری برای این ایندکس یافت نشد';
+                        return;
+                    }
+                    refInput.value = address;
+                    statusDiv.textContent = 'آدرس با موفقیت درج شد';
+                    statusDiv.style.color = '#00ff88';
+                } catch (e) {
+                    statusDiv.textContent = 'خطا در دریافت آدرس: ' + (e.message || e);
+                    statusDiv.style.color = '#ff4444';
+                }
+            });
+        });
+
+        // اتصال خودکار به کیف پول هنگام بارگذاری صفحه
+        document.addEventListener('DOMContentLoaded', async function() {
+            if (window.connectWallet) {
+                await window.connectWallet();
+            }
+            if (window.showRegistrationForm) {
+                await window.showRegistrationForm();
+            }
+            
+            // راه‌اندازی دکمه ثبت‌نام
+            const registerBtn = document.getElementById('register-btn');
+            if (registerBtn) {
+                registerBtn.onclick = async function() {
+                    const oldText = registerBtn.textContent;
+                    registerBtn.disabled = true;
+                    registerBtn.textContent = 'در حال ثبت‌نام...';
+                    
+                    try {
+                        if (!window.contractConfig || !window.contractConfig.contract) {
+                            throw new Error('اتصال کیف پول برقرار نیست');
+                        }
+                        
+                        const { contract, address } = window.contractConfig;
+                        const referrerInput = document.getElementById('referrer-address');
+                        const userInput = document.getElementById('register-user-address');
+                        const statusDiv = document.getElementById('register-status');
+                        
+                        let referrerAddress = referrerInput ? referrerInput.value.trim() : '';
+                        let userAddress = userInput ? userInput.value.trim() : '';
+                        
+                        if (!userAddress) {
+                            userAddress = address; // استفاده از آدرس کیف پول متصل
+                        }
+                        
+                        if (!referrerAddress) {
+                            referrerAddress = await contract.deployer();
+                        }
+                        
+                        if (!/^0x[a-fA-F0-9]{40}$/.test(userAddress)) {
+                            throw new Error('آدرس کیف پول کاربر معتبر نیست');
+                        }
+                        
+                        if (!/^0x[a-fA-F0-9]{40}$/.test(referrerAddress)) {
+                            throw new Error('آدرس معرف معتبر نیست');
+                        }
+                        
+                        // بررسی معتبر بودن معرف
+                        const refData = await contract.users(referrerAddress);
+                        if (!refData.activated) {
+                            throw new Error('معرف فعال نیست');
+                        }
+                        
+                        // بررسی ثبت‌نام نبودن کاربر جدید
+                        const userData = await contract.users(userAddress);
+                        if (userData.activated) {
+                            throw new Error('این آدرس قبلاً ثبت‌نام کرده است');
+                        }
+                        
+                        statusDiv.innerHTML = '<div style="color:#a786ff;">⏳ در حال ثبت‌نام...</div>';
+                        
+                        // ثبت‌نام
+                        const tx = await contract.registerAndActivate(referrerAddress, userAddress);
+                        statusDiv.innerHTML = '<div style="color:#a786ff;">⏳ در انتظار تایید تراکنش...</div>';
+                        
+                        await tx.wait();
+                        
+                        statusDiv.innerHTML = '<div style="color:#00ff88;">✅ ثبت‌نام با موفقیت انجام شد!</div>';
+                        
+                        // پاک کردن فرم
+                        if (referrerInput) referrerInput.value = '';
+                        if (userInput) userInput.value = '';
+                        
+                    } catch (error) {
+                        console.error('Registration error:', error);
+                        let errorMessage = 'خطا در ثبت‌نام';
+                        
+                        if (error.code === 4001) {
+                            errorMessage = 'لغو توسط کاربر';
+                        } else if (error.message.includes('activated')) {
+                            errorMessage = error.message;
+                        } else if (error.message.includes('registered')) {
+                            errorMessage = error.message;
+                        } else if (error.message.includes('insufficient')) {
+                            errorMessage = 'موجودی کافی نیست';
+                        }
+                        
+                        const statusDiv = document.getElementById('register-status');
+                        if (statusDiv) {
+                            statusDiv.innerHTML = `<div style="color:#ff4444;">❌ ${errorMessage}</div>`;
+                        }
+                    } finally {
+                        registerBtn.textContent = oldText;
+                        registerBtn.disabled = false;
+                    }
+                };
+            }
+        });
+    </script>
+</body>
+</html> 
